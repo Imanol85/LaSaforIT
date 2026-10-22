@@ -1,0 +1,65 @@
+name: Publicar en GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  BASE_HREF: ${{ vars.BASE_HREF || '/LaSaforIT/' }}
+  SITE_URL: ${{ vars.SITE_URL || 'https://imanol85.github.io/LaSaforIT/' }}
+  DEFAULT_SITE_URL: https://imanol85.github.io/LaSaforIT/
+  PUBLISH_DIR: publish/wwwroot
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Publicar en Release
+        run: dotnet publish src/LaSaforIT.Web/LaSaforIT.Web.csproj -c Release -o publish
+
+      - name: Ajustar base href
+        run: |
+          sed -i "s|<base href=\"/\" />|<base href=\"${BASE_HREF}\" />|" "$PUBLISH_DIR/index.html"
+          grep -q "<base href=\"${BASE_HREF}\" />" "$PUBLISH_DIR/index.html"
+
+      - name: Ajustar URL pública
+        if: env.SITE_URL != env.DEFAULT_SITE_URL
+        run: sed -i "s|${DEFAULT_SITE_URL}|${SITE_URL}|g" "$PUBLISH_DIR/index.html" "$PUBLISH_DIR/sitemap.xml" "$PUBLISH_DIR/robots.txt"
+
+      - name: Preparar ficheros de GitHub Pages
+        run: |
+          rm -f "$PUBLISH_DIR/index.html.br" "$PUBLISH_DIR/index.html.gz"
+          cp "$PUBLISH_DIR/index.html" "$PUBLISH_DIR/404.html"
+          touch "$PUBLISH_DIR/.nojekyll"
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: publish/wwwroot
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
