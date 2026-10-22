@@ -1,0 +1,43 @@
+@page "/aviso-legal"
+@using LaSaforIT.Web.Components.Legal
+
+<PageTitle>Aviso legal | La Safor I.T.</PageTitle>
+
+<HeadContent>
+    <meta name="robots" content="noindex, follow" />
+</HeadContent>
+
+<LegalDocument Title="Aviso legal">
+    <h2>1. Datos identificativos</h2>
+    <p>En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de los datos del titular de este sitio web:</p>
+    <ul>
+        <li>Titular: @SiteInfo.OwnerName</li>
+        <li>Nombre comercial: @SiteInfo.BrandName</li>
+        <li>NIF: @SiteInfo.TaxId</li>
+        <li>Domicilio: @SiteInfo.AddressFull</li>
+        <li>Correo electrónico: @SiteInfo.Email</li>
+        <li>Teléfono: @SiteInfo.PhoneDisplay</li>
+        <li>Sitio web: @SiteInfo.PublicUrl</li>
+    </ul>
+
+    <h2>2. Objeto</h2>
+    <p>Este sitio web informa sobre los servicios de desarrollo de software a medida que ofrece su titular y facilita un medio para contactar con él. La información publicada tiene carácter general e informativo y no constituye una oferta contractual; las condiciones de cada encargo se fijan por escrito en la propuesta correspondiente.</p>
+
+    <h2>3. Condiciones de uso</h2>
+    <p>El acceso al sitio es gratuito y no requiere registro. Quien lo utiliza se compromete a hacerlo de forma lícita, conforme a este aviso legal y sin dañar, inutilizar o sobrecargar el sitio ni impedir su uso normal por otras personas. Los datos que se envíen a través del formulario de contacto deben ser veraces y propios.</p>
+
+    <h2>4. Propiedad intelectual e industrial</h2>
+    <p>Los textos, el diseño y el código de este sitio web son titularidad de @SiteInfo.OwnerName, salvo que se indique lo contrario. Queda prohibida su reproducción, distribución, comunicación pública o transformación sin autorización expresa, salvo para uso personal y privado. Las marcas y nombres de terceros que se mencionan (por ejemplo, .NET o Microsoft) pertenecen a sus respectivos titulares y se citan solo con fines descriptivos.</p>
+
+    <h2>5. Responsabilidad</h2>
+    <p>El titular procura que la información del sitio sea correcta y esté actualizada, pero no garantiza la ausencia de errores ni la disponibilidad ininterrumpida del sitio. No se hace responsable de los daños que puedan derivarse de interrupciones del servicio, fallos técnicos o del uso indebido del sitio por parte de terceros.</p>
+
+    <h2>6. Enlaces externos</h2>
+    <p>El sitio puede contener enlaces a páginas de terceros. El titular no controla su contenido ni responde de él; el enlace no implica recomendación ni relación con sus responsables.</p>
+
+    <h2>7. Protección de datos</h2>
+    <p>El tratamiento de los datos personales que se facilitan a través de este sitio se explica en la <a href="privacidad">Política de privacidad</a>. Este sitio no utiliza cookies; los detalles están en la <a href="cookies">Política de cookies</a>.</p>
+
+    <h2>8. Legislación aplicable</h2>
+    <p>Este aviso legal se rige por la legislación española. Para cualquier controversia serán competentes los juzgados y tribunales que correspondan conforme a la normativa aplicable; cuando la otra parte sea una persona consumidora, los de su domicilio.</p>
+</LegalDocument>
