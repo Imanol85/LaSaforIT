@@ -1,5 +1,19 @@
+@* Marcado y texto duplicados en el shell estático de wwwroot/index.html (primera pintura).
+   Cualquier cambio aquí debe aplicarse también allí para evitar saltos de diseño al montar la aplicación. *@
 <section id="@SiteSections.Hero" class="hero on-night">
     <div class="container">
-        <h1>Software a medida, acelerado con IA y verificado antes de llegar a tus manos</h1>
+        <p class="eyebrow">Desarrollo de software a medida sobre .NET</p>
+        <h1 class="hero__title">Software a medida, acelerado con IA y verificado antes de llegar a tus manos</h1>
+        <p class="hero__lead">Construyo aplicaciones web, APIs, programas de escritorio e integraciones para tu negocio. La inteligencia artificial me permite avanzar más rápido y yo, como arquitecto, reviso cada paso. Nada se entrega sin pasar antes una verificación independiente contra lo que acordamos.</p>
+        <div class="hero__actions">
+            <a class="btn btn--primary" href="@SiteSections.Href(SiteSections.Contact)">Cuéntame tu proyecto</a>
+            <a class="btn btn--secondary" href="@SiteSections.Href(SiteSections.Method)">Ver cómo trabajo</a>
+        </div>
+        <ul class="hero-points">
+            <li>Desarrollo a medida sobre .NET</li>
+            <li>IA con supervisión de arquitecto en cada paso</li>
+            <li>Entrega verificada al 100 % contra la especificación</li>
+            <li>Trato directo con quien lo construye</li>
+        </ul>
     </div>
 </section>
