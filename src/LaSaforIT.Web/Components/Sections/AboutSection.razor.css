@@ -1,0 +1,44 @@
+/* Presentación a la izquierda y lista de puntos a la derecha en pantallas anchas. */
+.about {
+    display: grid;
+    gap: var(--space-6);
+    margin-top: var(--space-6);
+}
+
+.about__text {
+    margin: 0;
+    max-width: var(--measure);
+}
+
+.about__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+}
+
+.about__list li {
+    position: relative;
+    padding-left: var(--space-6);
+    font-weight: 600;
+}
+
+.about__list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: .5em;
+    width: .6rem;
+    height: .6rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+}
+
+@media (min-width: 48rem) {
+    .about {
+        grid-template-columns: 3fr 2fr;
+        gap: var(--space-12);
+        align-items: start;
+    }
+}

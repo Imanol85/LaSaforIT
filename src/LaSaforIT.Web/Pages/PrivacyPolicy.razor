@@ -1,0 +1,60 @@
+@page "/privacidad"
+@using LaSaforIT.Web.Components.Legal
+
+<PageTitle>Política de privacidad | La Safor I.T.</PageTitle>
+
+<HeadContent>
+    <meta name="robots" content="noindex, follow" />
+</HeadContent>
+
+<LegalDocument Title="Política de privacidad">
+    <p>En esta página te explico qué datos personales trato cuando contactas conmigo a través de esta web, para qué los uso y qué derechos tienes, conforme al Reglamento (UE) 2016/679 (RGPD) y a la Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD).</p>
+
+    <h2>1. Responsable del tratamiento</h2>
+    <p>@SiteInfo.OwnerName (@SiteInfo.BrandName), NIF @SiteInfo.TaxId, @SiteInfo.AddressFull. Correo: @SiteInfo.Email. Teléfono: @SiteInfo.PhoneDisplay.</p>
+
+    <h2>2. Qué datos trato</h2>
+    <ul>
+        <li>Los que escribes en el formulario de contacto: nombre, correo electrónico, teléfono (opcional) y el contenido de tu mensaje.</li>
+        <li>Los que me facilites si contactas directamente por correo electrónico o por teléfono.</li>
+    </ul>
+    <p>Esta web no utiliza cookies ni herramientas de analítica o publicidad, y no crea perfiles de las personas que la visitan.</p>
+
+    <h2>3. Para qué los uso</h2>
+    <ul>
+        <li>Responder a tu consulta.</li>
+        <li>Si me lo pides, preparar y enviarte una propuesta de trabajo.</li>
+    </ul>
+    <p>No tomo decisiones automatizadas sobre ti ni te enviaré comunicaciones comerciales que no hayas solicitado.</p>
+
+    <h2>4. Base jurídica</h2>
+    <ul>
+        <li>Tu consentimiento, que das al marcar la casilla del formulario (artículo 6.1.a del RGPD). Puedes retirarlo en cualquier momento, sin que ello afecte a la licitud del tratamiento anterior.</li>
+        <li>La aplicación de medidas precontractuales a petición tuya cuando solicitas una propuesta (artículo 6.1.b del RGPD).</li>
+    </ul>
+
+    <h2>5. Cuánto tiempo los conservo</h2>
+    <p>El tiempo necesario para atender tu solicitud. Si de ella surge un encargo, durante la relación profesional y, después, durante los plazos que exija la ley. Si no surge, se eliminan cuando la consulta queda cerrada, salvo que me pidas conservarlos para retomarla.</p>
+
+    <h2>6. Quién más trata tus datos</h2>
+    <p>No cedo tus datos a terceros salvo obligación legal. Para que la web funcione intervienen estos proveedores, que tratan los datos únicamente por mi cuenta (encargados del tratamiento) o como prestadores del servicio técnico:</p>
+    <ul>
+        <li><strong>Web3Forms</strong>: recibe el contenido del formulario y me lo reenvía por correo electrónico. Solo interviene cuando pulsas "Enviar mensaje".</li>
+        <li><strong>Google (Gmail)</strong>: proveedor del buzón de correo en el que recibo los mensajes.</li>
+        <li><strong>GitHub (GitHub Pages)</strong>: aloja esta web. Como cualquier servidor, recibe la dirección IP y los datos técnicos de conexión del navegador para poder servir las páginas.</li>
+    </ul>
+    <p>Algunos de estos proveedores pueden tratar datos fuera del Espacio Económico Europeo. En ese caso lo hacen con las garantías que exige el RGPD y que cada uno describe en su propia política de privacidad.</p>
+
+    <h2>7. Tus derechos</h2>
+    <p>Puedes ejercer los derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad, y retirar tu consentimiento, escribiendo a @SiteInfo.Email o por correo postal a la dirección indicada, indicando qué derecho quieres ejercer. Si es necesario para comprobar tu identidad, te pediré la información imprescindible para ello.</p>
+    <p>Si consideras que no he atendido correctamente tu solicitud, puedes presentar una reclamación ante la Agencia Española de Protección de Datos (www.aepd.es).</p>
+
+    <h2>8. Menores de edad</h2>
+    <p>Esta web no está dirigida a menores de 14 años. Si tienes menos de esa edad, no envíes datos a través del formulario.</p>
+
+    <h2>9. Seguridad</h2>
+    <p>La web se sirve de forma cifrada (HTTPS) y el formulario envía los datos también cifrados. Aplico medidas razonables para proteger los datos y limitar el acceso a ellos.</p>
+
+    <h2>10. Cambios en esta política</h2>
+    <p>Si esta política cambia, la nueva versión se publicará en esta misma página con su fecha de actualización.</p>
+</LegalDocument>

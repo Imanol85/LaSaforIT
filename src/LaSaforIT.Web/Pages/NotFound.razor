@@ -1,0 +1,17 @@
+﻿@page "/not-found"
+@layout MainLayout
+
+<PageTitle>Página no encontrada | La Safor I.T.</PageTitle>
+
+<HeadContent>
+    <meta name="robots" content="noindex" />
+</HeadContent>
+
+<div class="container prose">
+    <h1>Esta página no existe</h1>
+    <p>Puede que el enlace esté mal escrito o que la página se haya movido.</p>
+    <p>
+        <a href="./">Volver al inicio</a> ·
+        <a href="@SiteSections.Href(SiteSections.Contact)">Ir a contacto</a>
+    </p>
+</div>

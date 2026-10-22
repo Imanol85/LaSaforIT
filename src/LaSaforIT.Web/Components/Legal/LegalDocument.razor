@@ -1,0 +1,17 @@
+<article class="legal prose container">
+    <h1>@Title</h1>
+    <p class="legal__updated">Última actualización: @LastUpdated</p>
+    @ChildContent
+    <p><a href="./">Volver al inicio</a></p>
+</article>
+
+@code {
+    [Parameter, EditorRequired]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public string LastUpdated { get; set; } = SiteInfo.LegalLastUpdated;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

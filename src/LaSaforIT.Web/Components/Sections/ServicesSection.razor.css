@@ -1,0 +1,24 @@
+/* Rejilla de tarjetas: 1 columna en móvil, 2 desde sm (40rem), 4 desde lg (64rem).
+   El aspecto de .card es global (app.css). */
+.services-grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: 1fr;
+    margin-top: var(--space-8);
+}
+
+.services-note {
+    margin-top: var(--space-8);
+}
+
+@media (min-width: 40rem) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 64rem) {
+    .services-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

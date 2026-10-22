@@ -1,0 +1,17 @@
+<section id="@SiteSections.Contact" class="section" aria-labelledby="contacto-title">
+    <div class="container contact-layout">
+        <div class="contact-intro">
+            <SectionHeader HeadingId="contacto-title"
+                           Eyebrow="Contacto"
+                           Title="Cuéntame tu proyecto"
+                           Intro="Explícame qué necesitas con tus palabras. Te respondo en un día laborable." />
+            <p class="contact-alt">
+                ¿Prefieres hablar? Llámame al <a href="@SiteInfo.PhoneHref"><strong>@SiteInfo.PhoneDisplay</strong></a>
+                o escríbeme a <a href="@ContactMailto.Simple()"><strong>@SiteInfo.Email</strong></a>.
+            </p>
+        </div>
+        <div class="contact-form">
+            <ContactForm />
+        </div>
+    </div>
+</section>

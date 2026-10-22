@@ -1,0 +1,778 @@
+/*
+ * Sistema de estilos global (móvil primero, sin dependencias externas).
+ *
+ * Las custom properties no se pueden usar dentro de @media; los puntos de
+ * ruptura se repiten literalmente en las consultas y se documentan aquí:
+ *
+ *   base  < 40rem            Una columna; menú desplegable; botones del hero a ancho completo
+ *   sm    min-width: 40rem   (640px)  Tarjetas a 2 columnas; botones del hero en línea
+ *   md    min-width: 48rem   (768px)  Navegación en línea, botón de menú oculto
+ *   lg    min-width: 64rem   (1024px) Rejillas de 4 columnas, contacto a 2 columnas
+ *
+ * Orden de bloques: tokens, base, utilidades, foco, botones, cabecera, hero,
+ * formularios, prosa legal, cargador, error de interfaz, movimiento reducido.
+ */
+
+/* ==========================================================================
+   1. Tokens
+   ========================================================================== */
+:root {
+    --color-bg: #FFFFFF;
+    --color-surface: #F4F7F9;
+    --color-ink: #14212B;
+    --color-ink-muted: #4A5A66;
+    --color-primary: #0B5C7A;
+    --color-primary-strong: #084A62;
+    --color-accent: #E8762B;
+    --color-accent-hover: #D1641C;
+    --color-accent-strong: #A84A0C;
+    --color-night: #0E2A3A;
+    --color-on-night: #FFFFFF;
+    --color-on-night-muted: #C9D6DF;
+    --color-border: #D5DDE3;
+    --color-field-border: #6B7C88;
+    --color-error: #B42318;
+    --color-success: #146C43;
+    --color-focus: #0B5C7A;
+
+    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+
+    --fs-sm: 0.875rem;
+    --fs-base: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+    --fs-md: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+    --fs-lg: clamp(1.375rem, 1.2rem + 0.9vw, 1.75rem);
+    --fs-xl: clamp(1.75rem, 1.4rem + 1.8vw, 2.5rem);
+    --fs-2xl: clamp(2rem, 1.45rem + 2.8vw, 3.25rem);
+    --lh-body: 1.6;
+    --lh-heading: 1.15;
+    --measure: 65ch;
+
+    --space-1: .25rem;
+    --space-2: .5rem;
+    --space-3: .75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-12: 3rem;
+    --space-section: clamp(3rem, 2rem + 5vw, 6rem);
+
+    --radius: .5rem;
+    --header-height: 4rem;
+    --container: 72rem;
+}
+
+/* ==========================================================================
+   2. Base
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-padding-top: var(--header-height);
+    -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: var(--fs-base);
+    line-height: var(--lh-body);
+    color: var(--color-ink);
+    background: var(--color-bg);
+}
+
+h1, h2, h3, h4 {
+    margin: 0 0 var(--space-4);
+    line-height: var(--lh-heading);
+    color: var(--color-ink);
+}
+
+h1 { font-size: var(--fs-2xl); }
+h2 { font-size: var(--fs-xl); }
+h3 { font-size: var(--fs-lg); }
+
+p {
+    margin: 0 0 var(--space-4);
+}
+
+ul, ol {
+    margin: 0 0 var(--space-4);
+    padding-left: var(--space-6);
+}
+
+a {
+    color: var(--color-primary);
+    text-underline-offset: .15em;
+}
+
+a:hover {
+    color: var(--color-primary-strong);
+}
+
+img, svg {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ==========================================================================
+   3. Utilidades
+   ========================================================================== */
+.container {
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+}
+
+@media (min-width: 40rem) {
+    .container {
+        padding-inline: var(--space-6);
+    }
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+.skip-link {
+    position: absolute;
+    top: 0;
+    left: var(--space-4);
+    z-index: 1100;
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-night);
+    color: var(--color-on-night);
+    border-radius: 0 0 var(--radius) var(--radius);
+    transform: translateY(-120%);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+    transform: translateY(0);
+    outline-color: var(--color-accent);
+}
+
+.eyebrow {
+    margin: 0 0 var(--space-2);
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--color-accent-strong);
+}
+
+.section {
+    padding-block: var(--space-section);
+}
+
+.section--alt {
+    background: var(--color-surface);
+}
+
+.section-intro {
+    max-width: var(--measure);
+    font-size: var(--fs-md);
+    color: var(--color-ink-muted);
+}
+
+section[id] {
+    scroll-margin-top: var(--header-height);
+}
+
+.on-night {
+    background: var(--color-night);
+    color: var(--color-on-night);
+    --color-focus: var(--color-accent);
+}
+
+.on-night h1,
+.on-night h2,
+.on-night h3 {
+    color: var(--color-on-night);
+}
+
+.on-night a {
+    color: var(--color-on-night);
+}
+
+.on-night .eyebrow {
+    color: var(--color-accent);
+}
+
+/* Tarjeta base compartida por Servicios, IA, Método y Proceso; cada sección
+   añade solo su rejilla en su CSS aislado. */
+.card {
+    padding: var(--space-6);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+}
+
+.card > :last-child {
+    margin-bottom: 0;
+}
+
+.section--alt .card {
+    background: var(--color-bg);
+}
+
+/* ==========================================================================
+   4. Foco
+   ========================================================================== */
+:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+}
+
+/* El foco programático del salto al contenido no debe enmarcar todo el main. */
+main:focus {
+    outline: none;
+}
+
+/* ==========================================================================
+   5. Botones
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    min-width: 44px;
+    padding: var(--space-3) var(--space-6);
+    font: inherit;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+
+.btn:disabled,
+.btn[disabled] {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.btn--primary {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-ink);
+}
+
+.btn--primary:hover:not(:disabled) {
+    background: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+    color: var(--color-ink);
+}
+
+.btn--secondary {
+    background: transparent;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.btn--secondary:hover:not(:disabled) {
+    background: var(--color-primary);
+    color: var(--color-on-night);
+}
+
+.on-night .btn--primary,
+.on-night .btn--primary:hover {
+    color: var(--color-ink);
+}
+
+.on-night .btn--secondary {
+    border-color: var(--color-on-night);
+    color: var(--color-on-night);
+}
+
+.on-night .btn--secondary:hover:not(:disabled) {
+    background: var(--color-on-night);
+    color: var(--color-night);
+}
+
+/* ==========================================================================
+   6. Cabecera
+   ========================================================================== */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-inline: var(--space-4);
+    background: var(--color-night);
+    color: var(--color-on-night);
+    --color-focus: var(--color-accent);
+}
+
+@media (min-width: 40rem) {
+    .site-header {
+        padding-inline: var(--space-6);
+    }
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: var(--fs-md);
+    font-weight: 700;
+    color: var(--color-on-night);
+    text-decoration: none;
+}
+
+.brand:hover {
+    color: var(--color-on-night);
+}
+
+.brand__accent {
+    margin-left: .25em;
+    color: var(--color-accent);
+}
+
+.site-header nav {
+    display: flex;
+    align-items: center;
+}
+
+.menu-toggle {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    background: transparent;
+    border: 2px solid var(--color-on-night-muted);
+    border-radius: var(--radius);
+    color: var(--color-on-night);
+    cursor: pointer;
+    order: 1;
+    margin-left: auto;
+}
+
+/* Icono de tres barras dibujado con el elemento y sus pseudoelementos. */
+.menu-toggle::before,
+.menu-toggle::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 20px;
+    height: 2px;
+    margin-left: -10px;
+    background: currentColor;
+    box-shadow: 0 6px 0 currentColor;
+    top: 12px;
+}
+
+.menu-toggle::after {
+    top: 24px;
+    box-shadow: none;
+}
+
+.nav-list {
+    display: none;
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: var(--space-4);
+    list-style: none;
+    background: var(--color-night);
+    border-top: 1px solid rgba(255, 255, 255, .15);
+}
+
+.nav-list.is-open {
+    display: block;
+}
+
+.nav-list li + li {
+    margin-top: var(--space-2);
+}
+
+.nav-list a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: var(--space-2) var(--space-3);
+    color: var(--color-on-night);
+    text-decoration: none;
+    border-radius: var(--radius);
+}
+
+.nav-list a:hover {
+    background: rgba(255, 255, 255, .1);
+    color: var(--color-on-night);
+}
+
+.nav-list .nav-link--cta {
+    justify-content: center;
+    background: var(--color-accent);
+    color: var(--color-ink);
+    font-weight: 700;
+}
+
+.nav-list .nav-link--cta:hover {
+    background: var(--color-accent-hover);
+    color: var(--color-ink);
+}
+
+/* Enlace de contacto del shell estático (hijo directo de la cabecera). En móvil se
+   oculta porque la aplicación montada lo sustituye por el menú desplegable; desde
+   48rem se muestra con el mismo relleno que los enlaces de .nav-list. */
+.site-header > .nav-link--cta {
+    display: none;
+    align-items: center;
+    min-height: 44px;
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-accent);
+    color: var(--color-ink);
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: var(--radius);
+}
+
+@media (min-width: 48rem) {
+    .menu-toggle {
+        display: none;
+    }
+
+    .site-header > .nav-link--cta {
+        display: inline-flex;
+    }
+
+    .nav-list {
+        position: static;
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        padding: 0;
+        border-top: 0;
+        background: transparent;
+    }
+
+    .nav-list li + li {
+        margin-top: 0;
+    }
+}
+
+/* ==========================================================================
+   7. Hero
+   ========================================================================== */
+.hero {
+    padding-block: var(--space-12);
+    background: var(--color-night);
+    color: var(--color-on-night);
+    --color-focus: var(--color-accent);
+}
+
+@media (min-width: 48rem) {
+    .hero {
+        padding-block: var(--space-section);
+    }
+}
+
+.hero .eyebrow {
+    color: var(--color-accent);
+}
+
+.hero__title,
+.hero h1 {
+    max-width: 22ch;
+    margin-bottom: var(--space-6);
+    color: var(--color-on-night);
+}
+
+.hero__lead {
+    max-width: var(--measure);
+    font-size: var(--fs-md);
+    color: var(--color-on-night-muted);
+}
+
+.hero__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-block: var(--space-8);
+}
+
+.hero__actions .btn {
+    width: 100%;
+}
+
+@media (min-width: 40rem) {
+    .hero__actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .hero__actions .btn {
+        width: auto;
+    }
+}
+
+.hero-points {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: var(--color-on-night-muted);
+}
+
+.hero-points li {
+    position: relative;
+    padding-left: var(--space-6);
+}
+
+.hero-points li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: .6em;
+    width: .6rem;
+    height: .6rem;
+    background: var(--color-accent);
+    border-radius: 50%;
+}
+
+@media (min-width: 40rem) {
+    .hero-points {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ==========================================================================
+   8. Formularios
+   ========================================================================== */
+.field {
+    margin-bottom: var(--space-4);
+}
+
+.field label {
+    display: block;
+    margin-bottom: var(--space-1);
+    font-weight: 600;
+}
+
+.field input,
+.field textarea {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    padding: var(--space-3);
+    font: inherit;
+    color: var(--color-ink);
+    background: var(--color-bg);
+    border: 1px solid var(--color-field-border);
+    border-radius: var(--radius);
+}
+
+.field textarea {
+    min-height: 9rem;
+    resize: vertical;
+}
+
+.field__hint {
+    margin: var(--space-1) 0 0;
+    font-size: var(--fs-sm);
+    color: var(--color-ink-muted);
+}
+
+.checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    min-height: 44px;
+    margin-bottom: var(--space-4);
+    cursor: pointer;
+}
+
+.checkbox input {
+    flex: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: .1rem 0 0;
+    accent-color: var(--color-primary);
+}
+
+.validation-message {
+    margin: var(--space-1) 0 0;
+    font-size: var(--fs-sm);
+    color: var(--color-error);
+}
+
+.invalid,
+.field input[aria-invalid="true"],
+.field textarea[aria-invalid="true"] {
+    border-color: var(--color-error);
+    outline: 1px solid var(--color-error);
+}
+
+.form-status {
+    margin-bottom: var(--space-4);
+    padding: var(--space-4);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+}
+
+.form-status--error {
+    border-color: var(--color-error);
+    color: var(--color-error);
+}
+
+.form-status--success {
+    border-color: var(--color-success);
+    color: var(--color-success);
+}
+
+/* Trampa para bots: fuera de pantalla pero presente en el DOM (display:none
+   haría que algunos bots la ignoren). */
+.honeypot {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   9. Prosa legal
+   ========================================================================== */
+.prose {
+    padding-block: var(--space-12);
+}
+
+.prose h1,
+.prose h2,
+.prose p,
+.prose ul {
+    max-width: var(--measure);
+}
+
+.prose h2 {
+    margin-top: var(--space-8);
+    font-size: var(--fs-lg);
+}
+
+.legal__updated {
+    color: var(--color-ink-muted);
+    font-size: var(--fs-sm);
+}
+
+/* ==========================================================================
+   10. Shell y cargador
+   ========================================================================== */
+.app-loading {
+    position: relative;
+}
+
+.app-loading__bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1200;
+    width: var(--blazor-load-percentage, 0%);
+    height: 4px;
+    background: var(--color-accent);
+    transition: width .2s ease;
+}
+
+.app-loading__text {
+    padding: var(--space-4);
+    text-align: center;
+    font-size: var(--fs-sm);
+    color: var(--color-ink-muted);
+}
+
+.app-loading__text::after {
+    content: var(--blazor-load-percentage-text, "Cargando…");
+}
+
+/* ==========================================================================
+   11. Error de interfaz
+   ========================================================================== */
+#blazor-error-ui {
+    color-scheme: light only;
+    background: #FFF4CC;
+    color: var(--color-ink);
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1300;
+}
+
+#blazor-error-ui a {
+    margin-left: var(--space-2);
+    color: var(--color-primary);
+}
+
+#blazor-error-ui button {
+    position: absolute;
+    right: 0.75rem;
+    top: 0.25rem;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 var(--space-2);
+    font: inherit;
+    color: var(--color-ink);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.blazor-error-boundary {
+    padding: 1rem;
+    color: #FFFFFF;
+    background: var(--color-error);
+    border-radius: var(--radius);
+}
+
+.blazor-error-boundary::after {
+    content: "Se ha producido un error.";
+}
+
+/* ==========================================================================
+   12. Movimiento reducido
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

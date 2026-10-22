@@ -1,0 +1,39 @@
+@* El marcado de la marca y del enlace de contacto debe mantenerse alineado con el shell
+   estático de wwwroot/index.html para que al montar la aplicación no haya salto de diseño. *@
+<header class="site-header" @onkeydown="OnKeyDown">
+    <a class="brand" href="./">La Safor <span class="brand__accent">I.T.</span></a>
+    <button type="button" class="menu-toggle" @ref="_toggle"
+            aria-expanded="@(_menuOpen ? "true" : "false")" aria-controls="menu-principal" @onclick="ToggleMenu">
+        <span class="visually-hidden">@(_menuOpen ? "Cerrar menú" : "Abrir menú")</span>
+    </button>
+    <nav aria-label="Principal">
+        <ul id="menu-principal" class="nav-list @(_menuOpen ? "is-open" : null)">
+            @foreach (var item in SiteSections.Navigation)
+            {
+                <li>
+                    <a href="@SiteSections.Href(item.SectionId)"
+                       class="@(item.SectionId == SiteSections.Contact ? "nav-link--cta" : null)"
+                       @onclick="CloseMenu">@item.Label</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</header>
+
+@code {
+    private bool _menuOpen;
+    private ElementReference _toggle;
+
+    private void ToggleMenu() => _menuOpen = !_menuOpen;
+
+    private void CloseMenu() => _menuOpen = false;
+
+    private async Task OnKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Escape" && _menuOpen)
+        {
+            _menuOpen = false;
+            await _toggle.FocusAsync();
+        }
+    }
+}

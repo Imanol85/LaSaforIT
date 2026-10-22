@@ -1,0 +1,58 @@
+/* Lista ordenada de pasos con numeración por contador CSS y una línea
+   vertical que une los marcadores. El número no existe en el HTML. */
+.process-steps {
+    list-style: none;
+    margin: var(--space-8) 0 0;
+    padding: 0;
+    counter-reset: process-step;
+    display: grid;
+    gap: var(--space-4);
+}
+
+.process-steps > li {
+    position: relative;
+    counter-increment: process-step;
+    margin-left: calc(var(--space-8) + var(--space-3));
+}
+
+.process-steps > li::before {
+    content: counter(process-step);
+    position: absolute;
+    left: calc(-1 * (var(--space-8) + var(--space-3)));
+    top: var(--space-4);
+    width: 2rem;
+    height: 2rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-on-night);
+    font-weight: 700;
+    font-size: var(--fs-sm);
+    z-index: 1;
+}
+
+/* Tramo de línea desde el marcador hasta el siguiente paso. */
+.process-steps > li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: calc(-1 * (var(--space-8) + var(--space-3)) + 1rem - 1px);
+    top: calc(var(--space-4) + 2rem);
+    bottom: calc(-1 * var(--space-4));
+    width: 2px;
+    background: var(--color-border);
+}
+
+@media (min-width: 48rem) {
+    .process-steps > li {
+        margin-left: var(--space-12);
+    }
+
+    .process-steps > li::before {
+        left: calc(-1 * var(--space-12));
+    }
+
+    .process-steps > li:not(:last-child)::after {
+        left: calc(-1 * var(--space-12) + 1rem - 1px);
+    }
+}

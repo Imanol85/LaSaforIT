@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://imanol85.github.io/LaSaforIT/sitemap.xml
