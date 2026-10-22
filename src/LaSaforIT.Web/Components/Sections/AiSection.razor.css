@@ -1,0 +1,20 @@
+/* Rejilla de beneficios: una columna en móvil, dos desde sm y cuatro desde lg.
+   El aspecto de las tarjetas (.card) es global y no se redefine aquí. */
+.ai-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+}
+
+@media (min-width: 40rem) {
+    .ai-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 64rem) {
+    .ai-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
