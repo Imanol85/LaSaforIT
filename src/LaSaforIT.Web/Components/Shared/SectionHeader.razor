@@ -1,0 +1,25 @@
+<header class="section-header">
+    @if (!string.IsNullOrWhiteSpace(Eyebrow))
+    {
+        <p class="eyebrow">@Eyebrow</p>
+    }
+    <h2 id="@HeadingId" class="section-header__title">@Title</h2>
+    @if (!string.IsNullOrWhiteSpace(Intro))
+    {
+        <p class="section-intro">@Intro</p>
+    }
+</header>
+
+@code {
+    /// <summary>Antetítulo corto sobre el título.</summary>
+    [Parameter] public string? Eyebrow { get; set; }
+
+    /// <summary>Texto del encabezado de nivel 2.</summary>
+    [Parameter, EditorRequired] public string Title { get; set; } = string.Empty;
+
+    /// <summary>Id del encabezado, referenciado por aria-labelledby de la sección.</summary>
+    [Parameter, EditorRequired] public string HeadingId { get; set; } = string.Empty;
+
+    /// <summary>Entradilla opcional bajo el título.</summary>
+    [Parameter] public string? Intro { get; set; }
+}

@@ -1,7 +1,27 @@
 ﻿@page "/"
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
 
-<PageTitle>Home</PageTitle>
+<PageTitle>La Safor I.T. | Desarrollo de software a medida con IA y entrega verificada</PageTitle>
 
-<h1>Hello, world!</h1>
+<HeroSection />
+<ServicesSection />
+<AiSection />
+<MethodSection />
+<ProcessSection />
+<AboutSection />
+<ContactSection />
 
-Welcome to your new app.
+@code {
+    // Tras el primer render el contenido ya existe: se corrige el desplazamiento
+    // cuando la URL incluye un fragmento (entrada directa o llegada desde otra ruta).
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        var fragment = new Uri(Navigation.Uri).Fragment;
+        if (fragment.Length > 1)
+        {
+            await JS.InvokeVoidAsync("laSaforIT.scrollToId", Uri.UnescapeDataString(fragment[1..]));
+        }
+    }
+}

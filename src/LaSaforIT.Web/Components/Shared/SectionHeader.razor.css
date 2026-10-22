@@ -1,0 +1,15 @@
+/* Cabecera de sección: el antetítulo y la entradilla usan las clases globales;
+   aquí solo se fija el ritmo vertical. El título hereda tamaño, interlineado
+   y color de la base global de h2 (incluida la variante sobre fondo night). */
+.section-header {
+    max-width: var(--measure);
+    margin-bottom: var(--space-8);
+}
+
+.section-header__title {
+    margin: 0 0 var(--space-4);
+}
+
+.section-header .section-intro {
+    margin: 0;
+}
