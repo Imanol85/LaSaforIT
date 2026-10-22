@@ -45,20 +45,23 @@
 
 <body>
     <div id="app">
-        <!-- Shell estático de primera pintura. Duplica el marcado de Layout/SiteHeader.razor
-             (sin botón de menú, que requiere Blazor) y de Components/Sections/HeroSection.razor.
-             Cualquier cambio de texto o estructura debe aplicarse también en esos componentes
-             para que al montar la aplicación no haya salto de diseño. -->
+        <!-- Shell estático de primera pintura. Reproduce la cabecera de Layout/SiteHeader.razor
+             (marca y, en móvil, un marcador inerte con el aspecto del botón de menú, que requiere
+             Blazor; el enlace Contacto solo se muestra desde 48rem) y el hero de
+             Components/Sections/HeroSection.razor. Cualquier cambio de texto o estructura debe
+             aplicarse también en esos componentes para que al montar la aplicación no haya
+             salto de diseño. -->
         <header class="site-header">
             <a class="brand" href="./">La Safor <span class="brand__accent">I.T.</span></a>
+            <span class="menu-toggle" aria-hidden="true"></span>
             <a class="nav-link--cta" href="./#contacto">Contacto</a>
         </header>
 
-        <main>
-            <section id="inicio" class="hero on-night">
+        <main id="contenido" tabindex="-1">
+            <section id="inicio" class="hero on-night" aria-labelledby="inicio-title">
                 <div class="container">
                     <p class="eyebrow">Desarrollo de software a medida sobre .NET</p>
-                    <h1 class="hero__title">Software a medida, acelerado con IA y verificado antes de llegar a tus manos</h1>
+                    <h1 id="inicio-title" class="hero__title">Software a medida, acelerado con IA y verificado antes de llegar a tus manos</h1>
                     <p class="hero__lead">Construyo aplicaciones web, APIs, programas de escritorio e integraciones para tu negocio. La inteligencia artificial me permite avanzar más rápido y yo, como arquitecto, reviso cada paso. Nada se entrega sin pasar antes una verificación independiente contra lo que acordamos.</p>
                     <div class="hero__actions">
                         <a class="btn btn--primary" href="./#contacto">Cuéntame tu proyecto</a>
@@ -85,7 +88,7 @@
     <div id="blazor-error-ui">
         Se ha producido un error inesperado.
         <a href=".">Recargar</a>
-        <button type="button" class="dismiss" aria-label="Cerrar aviso">🗙</button>
+        <button type="button" class="dismiss" aria-label="Cerrar aviso">Cerrar</button>
     </div>
 
     <script>

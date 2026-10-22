@@ -1,6 +1,6 @@
 .status-title {
     margin: 0 0 var(--space-2);
-    font-size: var(--fs-lg, 1.125rem);
+    font-size: var(--fs-lg);
 }
 
 .form-status p {

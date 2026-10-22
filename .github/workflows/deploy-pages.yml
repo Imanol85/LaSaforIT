@@ -40,7 +40,9 @@ jobs:
 
       - name: Ajustar URL pública
         if: env.SITE_URL != env.DEFAULT_SITE_URL
-        run: sed -i "s|${DEFAULT_SITE_URL}|${SITE_URL}|g" "$PUBLISH_DIR/index.html" "$PUBLISH_DIR/sitemap.xml" "$PUBLISH_DIR/robots.txt"
+        run: |
+          sed -i "s|${DEFAULT_SITE_URL}|${SITE_URL}|g" "$PUBLISH_DIR/index.html" "$PUBLISH_DIR/sitemap.xml" "$PUBLISH_DIR/robots.txt"
+          rm -f "$PUBLISH_DIR/sitemap.xml.br" "$PUBLISH_DIR/sitemap.xml.gz" "$PUBLISH_DIR/robots.txt.br" "$PUBLISH_DIR/robots.txt.gz"
 
       - name: Preparar ficheros de GitHub Pages
         run: |

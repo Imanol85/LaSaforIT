@@ -17,5 +17,5 @@
 
     // Con la navegación nativa cancelada, el foco se mueve de verdad al <main>,
     // que es lo que necesita un lector de pantalla.
-    private async Task SkipToContentAsync() => await _main.FocusAsync();
+    private Task SkipToContentAsync() => _main.FocusAsync().AsTask();
 }

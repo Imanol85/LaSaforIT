@@ -483,3 +483,6 @@ $RECYCLE.BIN/
 
 # Worktrees del flujo SDD
 .sdd-worktrees/
+
+# Memoria local de los subagentes
+.claude/agent-memory/
