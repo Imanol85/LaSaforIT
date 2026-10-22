@@ -1,32 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LaSaforIT.Web</title>
+    <title>La Safor I.T. | Desarrollo de software a medida con IA y entrega verificada</title>
     <base href="/" />
+    <meta name="description" content="Desarrollo a medida de aplicaciones web, APIs, escritorio e integraciones sobre .NET. IA con supervisión de arquitecto y entrega verificada al 100 %." />
+    <link rel="canonical" href="https://imanol85.github.io/LaSaforIT/" />
+    <meta name="theme-color" content="#0E2A3A" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="La Safor I.T." />
+    <meta property="og:title" content="La Safor I.T. | Desarrollo de software a medida con IA y entrega verificada" />
+    <meta property="og:description" content="Aplicaciones web, APIs, escritorio e integraciones sobre .NET. IA supervisada por un arquitecto y entrega verificada al 100 %." />
+    <meta property="og:url" content="https://imanol85.github.io/LaSaforIT/" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="preload" id="webassembly" />
     <link rel="stylesheet" href="css/app.css" />
-    <!-- If you add any scoped CSS files, uncomment the following to load them
-    <link href="LaSaforIT.Web.styles.css" rel="stylesheet" /> -->
+    <link rel="stylesheet" href="LaSaforIT.Web.styles.css" />
     <script type="importmap"></script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "La Safor I.T.",
+        "founder": { "@type": "Person", "name": "Imanol Andrés Gómez" },
+        "url": "https://imanol85.github.io/LaSaforIT/",
+        "telephone": "+34630436815",
+        "email": "kiskekiske@gmail.com",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "C/ Ecce Homo 55",
+            "postalCode": "46723",
+            "addressLocality": "Almoines",
+            "addressRegion": "Valencia",
+            "addressCountry": "ES"
+        },
+        "description": "Desarrollo de software a medida sobre .NET, con IA supervisada por un arquitecto y entrega verificada al 100 %."
+    }
+    </script>
 </head>
 
 <body>
     <div id="app">
-        <svg class="loading-progress">
-            <circle r="40%" cx="50%" cy="50%" />
-            <circle r="40%" cx="50%" cy="50%" />
-        </svg>
-        <div class="loading-progress-text"></div>
+        <!-- Shell estático de primera pintura. Duplica el marcado de Layout/SiteHeader.razor
+             (sin botón de menú, que requiere Blazor) y de Components/Sections/HeroSection.razor.
+             Cualquier cambio de texto o estructura debe aplicarse también en esos componentes
+             para que al montar la aplicación no haya salto de diseño. -->
+        <header class="site-header">
+            <a class="brand" href="./">La Safor <span class="brand__accent">I.T.</span></a>
+            <a class="nav-link--cta" href="./#contacto">Contacto</a>
+        </header>
+
+        <main>
+            <section id="inicio" class="hero on-night">
+                <div class="container">
+                    <p class="eyebrow">Desarrollo de software a medida sobre .NET</p>
+                    <h1 class="hero__title">Software a medida, acelerado con IA y verificado antes de llegar a tus manos</h1>
+                    <p class="hero__lead">Construyo aplicaciones web, APIs, programas de escritorio e integraciones para tu negocio. La inteligencia artificial me permite avanzar más rápido y yo, como arquitecto, reviso cada paso. Nada se entrega sin pasar antes una verificación independiente contra lo que acordamos.</p>
+                    <div class="hero__actions">
+                        <a class="btn btn--primary" href="./#contacto">Cuéntame tu proyecto</a>
+                        <a class="btn btn--secondary" href="./#metodo">Ver cómo trabajo</a>
+                    </div>
+                    <ul class="hero-points">
+                        <li>Desarrollo a medida sobre .NET</li>
+                        <li>IA con supervisión de arquitecto en cada paso</li>
+                        <li>Entrega verificada al 100 % contra la especificación</li>
+                        <li>Trato directo con quien lo construye</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <div class="app-loading">
+            <div class="app-loading__bar"></div>
+            <p class="app-loading__text" role="status"></p>
+        </div>
+
+        <noscript>Esta web necesita JavaScript para funcionar completa. Puedes contactar conmigo por correo en kiskekiske@gmail.com o por teléfono en el 630 436 815.</noscript>
     </div>
 
     <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="." class="reload">Reload</a>
-        <span class="dismiss">🗙</span>
+        Se ha producido un error inesperado.
+        <a href=".">Recargar</a>
+        <button type="button" class="dismiss" aria-label="Cerrar aviso">🗙</button>
     </div>
+
+    <script>
+        window.laSaforIT = {
+            scrollToId: function (id) {
+                var el = document.getElementById(id);
+                if (el) { el.scrollIntoView(); }
+            }
+        };
+    </script>
     <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
 </body>
 
