@@ -1,3 +1,21 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager Navigation
 
-@Body
+<a class="skip-link" href="@SkipHref" @onclick="SkipToContentAsync" @onclick:preventDefault>Saltar al contenido</a>
+<SiteHeader />
+<main id="@SiteSections.MainContent" tabindex="-1" @ref="_main">
+    @Body
+</main>
+<SiteFooter />
+
+@code {
+    private ElementReference _main;
+
+    // El destino se calcula con la URI actual para que, sin JavaScript, el enlace no se
+    // resuelva contra <base href> y lleve a la home desde las páginas legales.
+    private string SkipHref => $"{Navigation.Uri.Split('#')[0]}#{SiteSections.MainContent}";
+
+    // Con la navegación nativa cancelada, el foco se mueve de verdad al <main>,
+    // que es lo que necesita un lector de pantalla.
+    private async Task SkipToContentAsync() => await _main.FocusAsync();
+}

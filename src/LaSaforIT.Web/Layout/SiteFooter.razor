@@ -1,0 +1,37 @@
+@using Microsoft.Extensions.Options
+@inject IOptions<SiteOptions> Options
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="site-footer__grid">
+            <div>
+                <p class="site-footer__brand">@SiteInfo.BrandName</p>
+                <p class="site-footer__tagline">Desarrollo de software a medida sobre .NET, con IA supervisada y entrega verificada.</p>
+            </div>
+            <address class="site-footer__contact">
+                <p>Teléfono: <a href="@SiteInfo.PhoneHref">@SiteInfo.PhoneDisplay</a></p>
+                <p>Correo: <a href="mailto:@SiteInfo.Email">@SiteInfo.Email</a></p>
+                <p>@SiteInfo.AddressFull</p>
+            </address>
+            <nav aria-label="Legal">
+                <ul class="site-footer__links">
+                    <li><a href="aviso-legal">Aviso legal</a></li>
+                    <li><a href="privacidad">Política de privacidad</a></li>
+                    <li><a href="cookies">Política de cookies</a></li>
+                </ul>
+            </nav>
+            @if (Options.Value.SocialLinks.Count > 0)
+            {
+                <nav aria-label="Redes sociales">
+                    <ul class="site-footer__links">
+                        @foreach (var link in Options.Value.SocialLinks)
+                        {
+                            <li><a href="@link.Url" target="_blank" rel="noopener noreferrer">@link.Name</a></li>
+                        }
+                    </ul>
+                </nav>
+            }
+        </div>
+        <p class="site-footer__legal">© @DateTime.Now.Year @SiteInfo.OwnerName · @SiteInfo.BrandName</p>
+    </div>
+</footer>
