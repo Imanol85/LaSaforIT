@@ -1,0 +1,59 @@
+/* Pasos numerados con contador CSS: la lista es un <ol> semántico y el número
+   visual se genera con ::before para no duplicar la numeración en el HTML. */
+.method-steps {
+    list-style: none;
+    margin: var(--space-8) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+    counter-reset: method-step;
+}
+
+.method-step {
+    counter-increment: method-step;
+}
+
+.method-step::before {
+    content: counter(method-step);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: var(--space-3);
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-on-night);
+    font-weight: 700;
+    font-size: var(--fs-md);
+}
+
+.method-step h3 {
+    margin-top: 0;
+}
+
+/* Cierre destacado bajo los pasos. */
+.method-closing {
+    margin: var(--space-8) 0 0;
+    padding: var(--space-4) var(--space-6);
+    border-left: 4px solid var(--color-accent);
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    font-size: var(--fs-md);
+    font-weight: 600;
+    color: var(--color-ink);
+}
+
+/* sm = 40rem */
+@media (min-width: 40rem) {
+    .method-steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* lg = 64rem: cuatro pasos en fila */
+@media (min-width: 64rem) {
+    .method-steps {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
