@@ -1,0 +1,150 @@
+@using Microsoft.Extensions.Options
+@using LaSaforIT.Web.Contact
+@inject IContactFormService ContactService
+@inject IOptions<ContactFormOptions> Options
+
+@if (_state == FormState.Sent)
+{
+    <div class="form-status form-status--success" role="status" aria-live="polite" tabindex="-1" @ref="_status">
+        <h3 class="status-title">Mensaje enviado</h3>
+        <p>Gracias, @_sentName. Te responderé en un día laborable a @_sentEmail.</p>
+        <button type="button" class="btn btn--secondary" @onclick="Reset">Escribir otro mensaje</button>
+    </div>
+}
+else
+{
+    <EditForm Model="_model" OnValidSubmit="SubmitAsync" OnInvalidSubmit="OnInvalid" FormName="contacto" novalidate>
+        <DataAnnotationsValidator />
+
+        @if (_state == FormState.Sending)
+        {
+            <div class="form-status" role="status" aria-live="polite" tabindex="-1" @ref="_status">
+                <p>Enviando tu mensaje…</p>
+            </div>
+        }
+        else if (_state == FormState.Invalid)
+        {
+            <div class="form-status form-status--error" role="status" aria-live="polite" tabindex="-1" @ref="_status">
+                <p>Revisa los campos marcados antes de enviar.</p>
+            </div>
+        }
+        else if (_state == FormState.Failed)
+        {
+            <div class="form-status form-status--error" role="alert" tabindex="-1" @ref="_status">
+                <h3 class="status-title">No se ha podido enviar el mensaje</h3>
+                <p>Puede ser un problema puntual de conexión. Tu texto sigue en el formulario: inténtalo de nuevo o envíamelo por correo con un clic.</p>
+                <a class="btn btn--secondary" href="@ContactMailto.FromRequest(_model, Options.Value.Subject)">Enviar por correo electrónico</a>
+            </div>
+        }
+        else if (_state == FormState.NotConfigured)
+        {
+            <div class="form-status form-status--error" role="alert" tabindex="-1" @ref="_status">
+                <h3 class="status-title">El envío desde la web no está disponible ahora mismo</h3>
+                <p>Puedes enviarme el mismo mensaje por correo con un clic o llamarme al 630 436 815.</p>
+                <a class="btn btn--secondary" href="@ContactMailto.FromRequest(_model, Options.Value.Subject)">Enviar por correo electrónico</a>
+            </div>
+        }
+
+        <div class="field">
+            <label for="contact-name">Nombre</label>
+            <InputText id="contact-name" @bind-Value="_model.Name" autocomplete="name" aria-describedby="contact-name-error" />
+            <ValidationMessage For="() => _model.Name" id="contact-name-error" />
+        </div>
+
+        <div class="field">
+            <label for="contact-email">Correo electrónico</label>
+            <InputText id="contact-email" type="email" @bind-Value="_model.Email" autocomplete="email" inputmode="email" aria-describedby="contact-email-error" />
+            <ValidationMessage For="() => _model.Email" id="contact-email-error" />
+        </div>
+
+        <div class="field">
+            <label for="contact-phone">Teléfono (opcional)</label>
+            <InputText id="contact-phone" type="tel" @bind-Value="_model.Phone" autocomplete="tel" aria-describedby="contact-phone-error" />
+            <ValidationMessage For="() => _model.Phone" id="contact-phone-error" />
+        </div>
+
+        <div class="field">
+            <label for="contact-message">¿Qué necesitas?</label>
+            <InputTextArea id="contact-message" @bind-Value="_model.Message" rows="6" aria-describedby="contact-message-hint contact-message-error" />
+            <p class="field__hint" id="contact-message-hint">Explícalo con tus palabras: qué quieres resolver, para quién y si tienes alguna fecha en mente.</p>
+            <ValidationMessage For="() => _model.Message" id="contact-message-error" />
+        </div>
+
+        <div class="honeypot" aria-hidden="true">
+            <label for="contact-website">No rellenes este campo</label>
+            <InputText id="contact-website" @bind-Value="_model.Website" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <label class="checkbox">
+            <InputCheckbox @bind-Value="_model.PrivacyAccepted" aria-describedby="contact-privacy-error" />
+            <span>He leído y acepto la <a href="privacidad">política de privacidad</a>.</span>
+        </label>
+        <ValidationMessage For="() => _model.PrivacyAccepted" id="contact-privacy-error" />
+
+        <p class="privacy-info">
+            <strong>Responsable:</strong> Imanol Andrés Gómez. <strong>Finalidad:</strong> responder a tu consulta y, si lo pides, preparar una propuesta. <strong>Legitimación:</strong> tu consentimiento. <strong>Destinatarios:</strong> Web3Forms, como encargado del tratamiento, para hacerme llegar el mensaje; no se ceden datos a terceros salvo obligación legal. <strong>Derechos:</strong> acceso, rectificación, supresión y los demás que explica la <a href="privacidad">política de privacidad</a>.
+        </p>
+
+        <button type="submit" class="btn btn--primary" disabled="@(_state == FormState.Sending)">
+            @(_state == FormState.Sending ? "Enviando…" : "Enviar mensaje")
+        </button>
+    </EditForm>
+}
+
+@code {
+    private enum FormState { Idle, Sending, Sent, Failed, NotConfigured, Invalid }
+
+    private ContactRequest _model = new();
+    private FormState _state = FormState.Idle;
+    private ElementReference _status;
+    private bool _focusStatus;
+    private string _sentName = string.Empty;
+    private string _sentEmail = string.Empty;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_focusStatus)
+        {
+            _focusStatus = false;
+            await _status.FocusAsync();
+        }
+    }
+
+    private void OnInvalid()
+    {
+        _state = FormState.Invalid;
+        _focusStatus = true;
+    }
+
+    private async Task SubmitAsync()
+    {
+        _state = FormState.Sending;
+        _focusStatus = true;
+        StateHasChanged();
+
+        var result = await ContactService.SendAsync(_model);
+
+        switch (result.Status)
+        {
+            case ContactSubmissionStatus.Sent:
+                _sentName = _model.Name.Trim();
+                _sentEmail = _model.Email.Trim();
+                _state = FormState.Sent;
+                break;
+            case ContactSubmissionStatus.NotConfigured:
+                _state = FormState.NotConfigured;
+                break;
+            default:
+                _state = FormState.Failed;
+                break;
+        }
+
+        _focusStatus = true;
+    }
+
+    private void Reset()
+    {
+        _model = new ContactRequest();
+        _state = FormState.Idle;
+    }
+}
