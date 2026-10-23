@@ -23,7 +23,7 @@
     margin-bottom: var(--space-3);
     border-radius: 50%;
     background: var(--color-primary);
-    color: var(--color-on-night);
+    color: var(--color-bg);
     font-weight: 700;
     font-size: var(--fs-md);
 }

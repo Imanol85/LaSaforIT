@@ -34,6 +34,8 @@
     --color-error: #B42318;
     --color-success: #146C43;
     --color-focus: #0B5C7A;
+    --color-warning-bg: #FFF4CC;
+    --color-border-on-night: rgba(255, 255, 255, .15);
 
     --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 
@@ -323,7 +325,11 @@ main:focus {
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
-    padding-inline: var(--space-4);
+    --header-gutter: var(--space-4);
+    /* El fondo ocupa todo el ancho; el relleno lateral alinea el contenido con
+       .container: en pantallas anchas suma al margen automático del contenedor
+       la misma holgura lateral que él, y en móvil se reduce a la holgura base. */
+    padding-inline: max(var(--header-gutter), calc((100% - var(--container)) / 2 + var(--header-gutter)));
     background: var(--color-night);
     color: var(--color-on-night);
     --color-focus: var(--color-accent);
@@ -331,7 +337,7 @@ main:focus {
 
 @media (min-width: 40rem) {
     .site-header {
-        padding-inline: var(--space-6);
+        --header-gutter: var(--space-6);
     }
 }
 
@@ -370,9 +376,13 @@ main:focus {
     border: 2px solid var(--color-on-night-muted);
     border-radius: var(--radius);
     color: var(--color-on-night);
-    cursor: pointer;
     order: 1;
     margin-left: auto;
+}
+
+/* Solo el botón real es interactivo; el marcador inerte del shell no. */
+button.menu-toggle {
+    cursor: pointer;
 }
 
 /* Icono de tres barras dibujado con el elemento y sus pseudoelementos. */
@@ -720,14 +730,14 @@ main:focus {
    ========================================================================== */
 #blazor-error-ui {
     color-scheme: light only;
-    background: #FFF4CC;
+    background: var(--color-warning-bg);
     color: var(--color-ink);
     bottom: 0;
     box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
     display: none;
     left: 0;
-    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    padding: 0.6rem 5rem 0.7rem 1.25rem;
     position: fixed;
     width: 100%;
     z-index: 1300;
@@ -754,7 +764,7 @@ main:focus {
 
 .blazor-error-boundary {
     padding: 1rem;
-    color: #FFFFFF;
+    color: var(--color-bg);
     background: var(--color-error);
     border-radius: var(--radius);
 }
