@@ -8,18 +8,8 @@
 .site-footer__grid {
     display: grid;
     gap: var(--space-6);
-}
-
-@media (min-width: 48rem) {
-    .site-footer__grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (min-width: 64rem) {
-    .site-footer__grid {
-        grid-template-columns: 1.5fr 1.5fr 1fr 1fr;
-    }
+    /* auto-fit colapsa las pistas vacías: sin redes sociales no queda una columna en blanco. */
+    grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
 }
 
 .site-footer p {
@@ -59,6 +49,6 @@
 .site-footer__legal {
     margin: var(--space-8) 0 0;
     padding-top: var(--space-4);
-    border-top: 1px solid rgba(255, 255, 255, .15);
+    border-top: 1px solid var(--color-border-on-night);
     font-size: var(--fs-sm);
 }
